@@ -30,12 +30,16 @@ lives = 6
 
 # Get user to  a guess
 while not end_of_game:
-    guess = input("Please make a guess: ").lower()
+    guess = input("\nPlease make a guess: ").lower()
 
 # for each char positiion in the chosen word
 # iterate the total number of characters -1
-# len = total num of chars
+# len/x = total num of chars
 # range (0,x)
+
+    if guess in display:
+        print(f"\nYou have entered the letter {guess} before. Try another letter")
+
     for char_position in range(chosen_word_length):
         cw_letter = chosen_word[char_position]
         if cw_letter == guess:
@@ -43,27 +47,19 @@ while not end_of_game:
     
     if guess not in chosen_word:
         lives -= 1
+        print (f" \nThe letter {guess} is not in the chosen word. Try another letter")
         if lives == 0:
             end_of_game = True
-            print("You lose.")
+            print("\nYou lose.")
 
     #Join all the elements in the list and turn it into a String.
-    print(f"{''.join(display)}")
+    print(f"\n{''.join(display)}")
 
     if "_" not in display:
         end_of_game = True
-        print("You win.")
+        print("\nYou win.")
 
 
-    # # try 1: display lives by getting the char position of each stage
-    for stage in range(len(stages)):
-        stage_position = stages[lives]
-    
-    if lives == 6 and cw_letter == guess:
-        print(stage_position)
-        print("You haven't lost a life")
-    elif lives >= 1 or lives <= 5:
-        print(stage_position)
-        print(f"You have {lives} lives left")
-
+    print(stages[lives])
+    print(f"\nYou have {lives} lives left")
 
