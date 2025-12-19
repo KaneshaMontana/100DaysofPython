@@ -25,7 +25,7 @@ scissors = ('''
 ---.__(___)
 ''')
 
-import random 
+from Day13 import random
 
 game_images = [rock, paper, scissors]
 # user to make a choice
@@ -37,7 +37,7 @@ else:
     print(game_images[user_choice])
 
 # compute randomly generate a number 
-comp_choice = random.randint(0,2)
+comp_choice = random.randint(0, 2)
 print("The computer chose:")
 print(game_images[comp_choice])
 
