@@ -11,33 +11,29 @@ print(higherlower)
 # 3.  Get the number of celebs in game data
 game_nums = len(data)
 
-# 4. Create a function that gets a random celeb from the data list using a random number
 def get_random_celeb():
     """Return one random celeb from game data based on a random number"""
     random_index = random.randint(0,game_nums-1)
     return data[random_index]
 
-# 5. Create a function that formats a celeb's data into a readable string
-#    e.g. "Selena Gomez, is a musician, from USA."
-def format_celeb (celeb):
-    name = celeb['name']
-    description = celeb['description']
-    country = celeb['country']
-    return (f"{name} is a {description} from {country}")
-
-
-# 5. Assign celebs to separate variables and ensure they don't match
 def assign_random_celeb():
-    """ Initialises random celeb from game data based on a random number"""
+    """ Assigns random celebs ensuring they don't match from game data"""
     celeb_a = get_random_celeb()
     celeb_b = get_random_celeb()
     while celeb_b == celeb_a:
         celeb_b = get_random_celeb()
     return celeb_a, celeb_b
 
-# 6. Create function to check if the users answer correctly guesses who has the most followers
-def check_answer(guess, followers_a, followers_b):
+def format_celeb (celeb):
+    """ Formats celeb account info into a string """
+    name = celeb['name']
+    description = celeb['description']
+    country = celeb['country']
+    return (f"{name} is a {description} from {country}")
 
+
+def check_answer(guess, followers_a, followers_b):
+    """ Compares Celeb A and Celeb B's followers with the user guess"""
     if followers_a > followers_b and guess == "A":
         return True
     if followers_b > followers_a and guess == "B":
@@ -45,8 +41,8 @@ def check_answer(guess, followers_a, followers_b):
     else:
         return False
 
-# 7. Start the game. If it's correct add 1 point and make celeb b the new celeb a. If not, end game
 def game_loop(celeb_a, celeb_b):
+    """ Makes the game repeatable. If it's correct user gets 1 point and celeb b becomes the  new celeb a. If not, end game"""
     score = 0
     game_should_continue = True
 
@@ -55,12 +51,18 @@ def game_loop(celeb_a, celeb_b):
         print(vs)  # from artwork.py
         print(f"Against B: {format_celeb(celeb_b)}")
         user_guess = str(input("\n Who has the most followers? A or B ")).upper()
+
+        # Check follower numbers
         celeb_a_followers = celeb_a["follower_count"]
         celeb_b_followers = celeb_b["follower_count"]
+        is_correct = check_answer(user_guess, celeb_a_followers, celeb_b_followers)
 
-        if check_answer(user_guess, celeb_a_followers, celeb_b_followers) == True:
+        if is_correct == True:
             score += 1
             print(f"You are correct! Your score is: {score}")
+            print("\n" * 20)
+            print(higherlower)
+            # Celeb b will become Celeb A
             celeb_a = celeb_b
             celeb_b = get_random_celeb()
             while celeb_b == celeb_a:
