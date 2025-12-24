@@ -18,7 +18,7 @@ drinks_available = menu.get_items()
 
 # CoffeeMaker: Methods report, resource sufficiency, makes order
 # Make a copy of the CoffeeMaker Class
-machine_usage = CoffeeMaker()
+machine_actions = CoffeeMaker()
 
 #Money maker
 money_machine = MoneyMachine()
@@ -30,19 +30,19 @@ while machine_on:
         machine_on = False
     elif order == "report":
         # show coffee maker report and money machine report
-        machine_usage.report()
+        machine_actions.report()
         money_machine.report()
     else:
         # ask menu to find a drink with that name
-        # find_drink method requires you to pass in the order parameter
-        # Then it returns
+        # find_drink method requires you to pass in the parameter the drink
+        # Then it returns None or a menu item object aka attributes: name, cost, ingredients
             drink = menu.find_drink(order)
             if drink is None:
                 print("Sorry that item is not available.")
             else:
             ## if the coffee make has enough resources for this drink
-                if machine_usage.is_resource_sufficient(drink):
-            ## If user's has given enough money to pay for the cost of this specific drink
+                if machine_actions.is_resource_sufficient(drink):
+            ## If user has given enough money to pay for the cost of this specific drink, make coffee
                     if money_machine.make_payment(drink.cost):
-                        machine_usage.make_coffee(drink)
+                        machine_actions.make_coffee(drink)
                         print(f"Here is your {order}")
