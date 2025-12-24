@@ -1,7 +1,5 @@
 from main import MENU, resources
 
-# TODO: Ask user what they would like to order
-
 machine_is_on = True
 profit = 0
 
